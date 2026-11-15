@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.1 (2026-11-15)
+
+- 仓库/技能更名为 `arknights-copilot-kit`（原名 `arknights-maa` 容易被误认为 MAA 本体或官方分支）
+- README 顶部增加定位说明：本仓库是围绕 MAA 的外围驱动套件，不包含、不修改 MAA
+
 ## 1.3.0 (2026-11-15)
 
 - 新增 `maa_connect.ps1`：MAA 侧连接设定（等模拟器 adb → 探测可用地址 → 必要时改配置 → 校验 `截图耗时` 才算连上）
