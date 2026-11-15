@@ -1,7 +1,9 @@
-# arknights-maa · 明日方舟抄作业自动化（MAA + Auto-Copilot）
+# arknights-copilot-kit · 明日方舟抄作业自动化套件（基于 MAA）
 
 用 [MAA](https://github.com/MaaAssistantArknights/MaaAssistantArknights) 的「自动战斗 / 抄作业」功能，配一套 PowerShell 脚本把关卡稳定打掉：脚本负责装作业、勾开关、盯日志、卡住就重开，失败后还会告诉你**到底缺什么**（等级 / 干员 / 专三）。
 
+> **本仓库不是 MAA 本体**，是围绕 MAA（MaaAssistantArknights）做的外围驱动套件，不包含也不修改 MAA。
+>
 > 不修改游戏、不注入内存、不读包体。全部操作只有两种：Windows UI 自动化（点 MAA 自己的按钮）+ 模拟器内 adb 点击。
 
 ## 为什么会有这个 / 适合谁
@@ -129,7 +131,7 @@ setx MUMU_ROOT       "D:\mumu\MuMuPlayer"                  # maa_launch.ps1 用
 ## 目录结构
 
 ```
-arknights-maa/
+arknights-copilot-kit/
 ├─ SKILL.md               # 给 AI 助手看的执行手册（流程、规矩、坑、坐标）
 ├─ README.md              # 本文件
 ├─ LICENSE                # MIT
@@ -151,7 +153,7 @@ arknights-maa/
 
 ```powershell
 # 1) 放进 WorkBuddy 技能目录（或任意位置直接用脚本）
-git clone https://github.com/913688905/arknights-maa.git "$env:USERPROFILE\.workbuddy\skills\arknights-maa"
+git clone https://github.com/913688905/arknights-copilot-kit.git "$env:USERPROFILE\.workbuddy\skills\arknights-copilot-kit"
 
 # 2) 自己建本机配置（不入库）
 Copy-Item .\scripts\maa_config.local.example.ps1 .\scripts\maa_config.local.ps1
@@ -164,7 +166,7 @@ Copy-Item .\scripts\maa_config.local.example.ps1 .\scripts\maa_config.local.ps1
 打压缩包发布时排除本机配置即可：
 
 ```powershell
-Compress-Archive -Path .\arknights-maa\* -DestinationPath .\arknights-maa.zip -Force
+Compress-Archive -Path .\arknights-copilot-kit\* -DestinationPath .\arknights-copilot-kit.zip -Force
 # 或在仓库里 git archive / 打 Release，会自动忽略 .gitignore 里的 maa_config.local.ps1
 ```
 
