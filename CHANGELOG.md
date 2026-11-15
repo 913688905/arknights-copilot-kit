@@ -5,7 +5,8 @@
 - 仓库/技能更名为 `arknights-copilot-kit`（原名 `arknights-maa` 容易被误认为 MAA 本体或官方分支）
 - README 顶部增加定位说明：本仓库是围绕 MAA 的外围驱动套件，不包含、不修改 MAA
 - 依赖表述改为通用「AI agent 客户端」（WorkBuddy / Claude Code / Cursor / Codex CLI 均可），不再绑定单一客户端
-- 明确「只操作 MAA、不直接操作游戏」，并列出仅有的三处 adb 辅助动作（启动游戏/截图/导航到详情页）
+- 明确「只操作 MAA、不直接操作游戏」：**连游戏启动都交给 MAA 的「开始唤醒」**，脚本不 `am start`；仅剩两处用 adb（截图 / 导航到详情页）
+- `maa_launch.ps1` 默认不再启动游戏，新增 `-StartGameViaAdb` 作为逃生口
 - 环境说明改为「推荐安卓模拟器」（真机 adb 理论可连但未验证）；补充说明**明日方舟 PC 版不保证能接上**（无 adb 通道，未验证）
 
 ## 1.3.0 (2026-11-15)
