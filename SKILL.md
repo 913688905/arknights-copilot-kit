@@ -18,7 +18,7 @@ version: "1.3.1"
 | `maa_guard.ps1 -Code prts://xxx [-StallSec 90] [-MaxRetry 1]` | **首选执行器**：校验作业加载 → 强制勾开关 → 启动 → 卡住/报错自动重开 → 退出码区分原因 |
 | `maa_diag.ps1 -Codes 109871,109728` | **失败后必跑**：作业需求 vs 干员箱逐项对比，出「缺什么」+「需专三清单」 |
 | `maa_clean.ps1 [-Days 0] [-MaaDebug 7] [-DryRun]` | **收工必跑**：清 `%TEMP%\maa-shot` 截图、模拟器内临时图，可选清 MAA 旧现场图 |
-| `maa_launch.ps1 [-SkipGame] [-SkipMaa]` | **一键拉起**：MuMu 主程序 → 实例 → adb → 游戏 → MAA（顺序不能颠倒；本机会 headless，见日常流程第 2 条） |
+| `maa_launch.ps1 [-SkipMaa] [-StartGameViaAdb]` | **拉起环境**：MuMu 主程序 → 实例 → adb → MAA；**默认不启动游戏**（交给 MAA「开始唤醒」） |
 | `maa_connect.ps1 [-WaitSec 300] [-Address ...] [-RestartMaa]` | **MAA 侧连接设定**：等用户开好模拟器 → 探测可用 adb 地址 → 必要时改 MAA 配置 → 起 MAA → 校验 `截图耗时` 才算连上 |
 | `maa_daily.ps1 [-Stage TL-9] [-Times N] [-NoFight] [-RestartMaa] [-DryRun]` | **日常一条龙**：改 MAA 任务队列（唤醒/基建/公招/信用购物/领奖/刷理智）→ 起 MAA → 点开始 → 盯完成；默认不嗑药不碎石 |
 
@@ -41,7 +41,8 @@ version: "1.3.1"
 
 ## 账号安全（用户原话：「别给我号整没了」）
 
-- **启动、登录、唤醒全部交给 MAA 的 StartUp 任务**，不要用 adb 手点 START / 登录按钮、不要碰账号相关界面。
+- **启动、登录、唤醒全部交给 MAA 的 StartUp 任务**：不要用 adb `am start` 拉游戏、不要手点 START / 登录按钮、不要碰账号相关界面。
+  游戏进程由 MAA 自己拉起；脚本只剩两处碰 adb：截图、把界面点到关卡详情页。
   我这边只在「摆关卡详情页」这种 MAA 不会自己做的定位上点最少必要的几下（抄作业流程）。
 - **绝对不碰**：寻访/抽卡、采购中心、好友申请（弹窗点 ✕）、商店购买、设置里的账号与退出登录。
 - **不消耗稀有资源**：不碎石、不嗑普通理智药、不花合成玉；理智不够就停下来问。
