@@ -11,6 +11,7 @@
 param(
   [switch]$SkipGame,
   [switch]$SkipMaa,
+  [switch]$StartGameViaAdb,
   [int]$WaitSec = 240
 )
 $ErrorActionPreference = 'Continue'
@@ -67,12 +68,13 @@ if (-not $ok) {
 }
 '  [3/4] adb ' + $AdbAddr + ' = device'
 
-# 4) 游戏
-if (-not $SkipGame) {
+# 4) 游戏：默认交给 MAA 的「开始唤醒」，脚本不动游戏进程
+if ($SkipGame) { '      (跳过游戏)' }
+elseif ($StartGameViaAdb) {
   $gpid = ((& $Adb -s $AdbAddr shell pidof $GamePkg 2>&1) -join '').Trim()
   if ($gpid) { '      游戏已在运行 pid=' + $gpid }
   else {
-    '      启动明日方舟…'
+    '      按 -StartGameViaAdb 用 adb 启动明日方舟…'
     & $Adb -s $AdbAddr shell am start -n $GameAct 2>&1 | Out-Null
     $dl = (Get-Date).AddSeconds(120)
     while ((Get-Date) -lt $dl) {
@@ -84,7 +86,11 @@ if (-not $SkipGame) {
   }
   '      等 25s 让游戏进主界面…'
   Start-Sleep -Seconds 25
-} else { '      (跳过游戏)' }
+} else {
+  $gpid = ((& $Adb -s $AdbAddr shell pidof $GamePkg 2>&1) -join '').Trim()
+  if ($gpid) { '      游戏已在运行 pid=' + $gpid + '（脚本没碰它）' }
+  else { '      游戏未运行：交给 MAA 的「开始唤醒」启动，脚本不用 adb 碰游戏' }
+}
 
 # 5) MAA
 if (-not $SkipMaa) {
