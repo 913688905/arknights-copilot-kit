@@ -105,7 +105,7 @@ TL-EX-8 突袭：试过 109871 / 109728 / 109696（3 份），都失败，已停
 |---|---|---|
 | adb 报 `device '127.0.0.1:16384' not found`，画面像卡死 | MuMu 重启了自己的 adb | 每次 adb 批量操作前 `adb connect 127.0.0.1:16384`；游戏进程一般没掉 |
 | **拉起后桌面上看不到模拟器，`adb devices` 只有 `emulator-5554`** | ① 只跑了 `MuMuManager control launch`、MuMu 主程序没起 → 实例以 **headless** 模式运行（`MuMuVMMHeadless.exe`，无窗口）；② 本机沙箱拦了 `sc.exe`（MuMu 用它查服务），MuMu 主程序起不牢、会自动退出 | 先起 `MuMuNxMain.exe`，再 `control -v 0 launch`，并校验 `MuMuNxDevice.exe` 有窗口句柄；若仍 headless，**让用户手动打开 MuMu**，我们只接管 adb/游戏/MAA。端口变 5554 时 MAA 连不上，需 shutdown+launch 重来或改 MAA 连接地址 |
-| **我启动的 MAA / 模拟器，过一会儿就消失** | 本环境**会在工具调用结束时回收该调用起的子进程**（实测：启动后下一个调用里进程就没了） | GUI 程序一律**由用户手动启动**；我的脚本只在单次调用内用 UIA/adb 操作它们。改配置要在 MAA 关着时做，改完请用户开 MAA，再用 `-Attach` 点开始 |
+| **我启动的 MAA / 模拟器，过一会儿就消失** | 本环境**会在工具调用结束时回收该调用起的子进程**（实测：启动后下一个调用里进程就没了）；想用 `schtasks` 绕过也会被程序黑名单拦 | GUI 程序（模拟器、MAA、BBChannel 等）一律**由用户手动启动**；我的脚本只在单次调用内用 UIA/adb 操作它们。改配置要在 MAA 关着时做，改完请用户开 MAA，再用 `-Attach` 点开始 |
 | MAA 任务页找不到「开始」按钮 | MAA 6.x 英文界面下这个按钮叫 **`Link Start!`**（不是「开始」） | 脚本已同时匹配 `Link Start!` / `开始`；`Stop` 同理 |
 | 地址填 `emulator-5554` 后 MAA 连不上甚至崩 | MAA 的连接地址只接受 `ip:port` 形式 | `emulator-5554` 要换算成 `127.0.0.1:5555`（`maa_connect.ps1` 的 `Normalize-Address` 已处理） |
 | 「解析作业文件错误！」+「未选择作业」 | **作业本身坏了**（例 `prts://109706`） | 换同关另一份（如 109554），别重试同一份 |
