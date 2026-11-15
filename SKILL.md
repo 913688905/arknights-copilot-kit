@@ -1,9 +1,9 @@
 ﻿---
-name: arknights-maa
+name: arknights-copilot-kit
 description: Drive MAA (MaaAssistantArknights) to clear Arknights stages by replaying community Auto-Copilot jobs — pick a job, put the game on the stage-detail screen, start, verify from MAA's log instead of screenshots. Use for "打活动EX关", "用 MAA 抄作业", "把这期活动打通", "帮我打突袭", or any Arknights stage-clearing request.
 description_zh: 用 MAA 抄作业通关明日方舟关卡（活动 EX、主线、资源关、突袭）：挑作业→摆界面→开打→读日志验收，带看门狗与试错预算，尽量不截图。
 description_en: Drive MAA to clear Arknights stages with Auto-Copilot jobs, verifying from logs rather than screenshots.
-version: "1.3.0"
+version: "1.3.1"
 ---
 
 # 明日方舟 × MAA 抄作业
