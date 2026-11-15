@@ -1,0 +1,8 @@
+# 本机私有配置与产物
+scripts/maa_config.local.ps1
+*.local.ps1
+*.png
+*.zip
+__pycache__/
+.DS_Store
+Thumbs.db
