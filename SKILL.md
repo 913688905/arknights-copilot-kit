@@ -3,7 +3,7 @@ name: arknights-copilot-kit
 description: Drive MAA (MaaAssistantArknights) to clear Arknights stages by replaying community Auto-Copilot jobs — pick a job, put the game on the stage-detail screen, start, verify from MAA's log instead of screenshots. Use for "打活动EX关", "用 MAA 抄作业", "把这期活动打通", "帮我打突袭", or any Arknights stage-clearing request.
 description_zh: 用 MAA 抄作业通关明日方舟关卡（活动 EX、主线、资源关、突袭）：挑作业→摆界面→开打→读日志验收，带看门狗与试错预算，尽量不截图。
 description_en: Drive MAA to clear Arknights stages with Auto-Copilot jobs, verifying from logs rather than screenshots.
-version: "1.3.3"
+version: "1.3.4"
 ---
 
 # 明日方舟 × MAA 抄作业
@@ -89,11 +89,15 @@ version: "1.3.3"
 
 ## 试错预算（硬规则，别在同一个地方磨）
 
-- **同一关最多 3 次尝试、最多 3 份作业。** 每份作业失败自动重开 1 次就够（`-MaxRetry 1`），不要反复重试同一份。
-- **每失败一次就主动提醒用户**（不要闷头连换三份）：说清这次试的是哪份作业、为什么没过（日志里的
-  `干员不可用 … 技能等级不足` / 漏怪 / 卡住），还剩几次预算，并**让用户参与选下一份试哪类作业**
-  （少人高练度 / 多人分摊 / 突袭专用）。用户没明确要继续，就先别开下一份。
-- 换了 3 份作业还不行 → **立刻停手**，跑 `maa_diag.ps1 -Codes <试过的3份>`，按下面模板汇报，然后问用户怎么办。**不许开第 4 份。**
+- **开打前先和用户定"试几份不同作业"，默认 3 份。** 用一句话确认，例如：
+  "这关我按最多 3 份不同作业来试，不行就停下来问你，可以吗？" 用户说 2 / 5 就按他说的改；不回答就按 3。
+  **约定后过程中不用每失败一次就回来问**，按预算连续换不同作业跑，跑完或到上限再汇报。
+- **关键词是"不同"**：每一份必须是**不同作业**（不同 `prts://` 编号），**绝不重试同一份**。
+  每份内部失败自动重开 1 次就够（`-MaxRetry 1`）；同一份最多重开这一下，不许反复点。
+- **换作业要换思路，不是换编号**：下一份必须按下面「换作业的路线」改变策略（少人→多人 / 借助战 / 突袭专用），
+  不要连着试三份"同一个干员要求专三"的少人作业——那等于在同一个练度问题上卡三次。
+- 试完约定的份数还不行 → **立刻停手**，跑 `maa_diag.ps1 -Codes <试过的编号>`，按下面模板汇报并问用户怎么办，
+  **不许超过约定份数**。
 - 停手时必须能说清属哪类原因：
   1. **练度缺口**（diag 直接列：例 塔露拉需 L90 实际 L89、卡达需 E1L60 实际 E0L1）
   2. **干员缺口**（没拥有，或只有精0 1级：例 冻河 E0L1 让所有 7 人「一摆到底」作业作废）
